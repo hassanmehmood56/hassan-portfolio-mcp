@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hassan Mehmood · /mcp</title>
+<meta name="description" content="My portfolio as a live MCP server. Connect your AI assistant and query my projects, skills and evidence, or run a fit check against a job description.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0b0d; --bg-soft:#0f1114; --surface:#14171b; --surface-2:#1b1f25;
+  --text:#eceef2; --muted:#9aa1ad; --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.18);
+  --accent:#c6f432; --accent-ink:#0a0b0d; --bad:#ff8a6a;
+  --font-display:"Space Grotesk",system-ui,sans-serif; --font-body:"Inter",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.6 var(--font-body);-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background:radial-gradient(900px 500px at 78% -5%,rgba(198,244,50,.09),transparent 60%),
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 64px;opacity:.9;
+  -webkit-mask-image:linear-gradient(#000 0,transparent 70%);mask-image:linear-gradient(#000 0,transparent 70%)}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--font-display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+.mono{font-family:var(--font-mono)}
+.eyebrow{font:500 .72rem/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+
+header{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);background:rgba(10,11,13,.72);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:60px;gap:16px}
+.brand{display:flex;gap:10px;align-items:center;text-decoration:none;font:600 1rem var(--font-display)}
+.brand b{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--accent);color:var(--accent-ink);font:700 .78rem var(--font-mono)}
+.brand span{color:var(--muted);font:400 .85rem var(--font-mono)}
+nav{display:flex;gap:22px;font:500 .72rem var(--font-mono);letter-spacing:.1em;text-transform:uppercase}
+nav a{text-decoration:none;color:var(--muted)} nav a:hover{color:var(--text)}
+.status{font:500 .72rem var(--font-mono);color:var(--muted);display:flex;gap:8px;align-items:center;white-space:nowrap}
+.dot{width:7px;height:7px;border-radius:50%;background:#555}
+.status.up .dot{background:var(--accent);box-shadow:0 0 10px var(--accent)}
+@media(max-width:760px){nav{display:none}}
+
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;padding:84px 0 72px}
+@media(max-width:900px){.hero{grid-template-columns:1fr;padding:56px 0 48px;gap:36px}}
+h1{font-size:clamp(2.6rem,6.4vw,4.6rem);line-height:1;font-weight:700;margin:18px 0 22px}
+h1 em{font-style:normal;color:var(--accent)}
+.lede{color:var(--muted);max-width:52ch;font-size:1.05rem;margin:0 0 28px}
+.urlbar{display:flex;align-items:center;gap:12px;max-width:520px;border:1px solid var(--line-strong);background:var(--surface);border-radius:12px;padding:8px 8px 8px 16px}
+.urlbar code{flex:1;font:500 .9rem var(--font-mono);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button,.btn{font:600 .78rem var(--font-mono);letter-spacing:.04em;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface-2);color:var(--text);padding:9px 14px;cursor:pointer;text-decoration:none;display:inline-block}
+button:hover,.btn:hover{border-color:var(--accent)}
+.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.primary:hover{filter:brightness(1.08)}
+.cta{display:flex;gap:14px;margin-top:20px;flex-wrap:wrap}
+
+.term{background:#0c0e11;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px -30px rgba(198,244,50,.18)}
+.term-h{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line);font:500 .7rem var(--font-mono);color:var(--muted);letter-spacing:.06em}
+.term pre{margin:0;padding:16px;font:400 .78rem/1.65 var(--font-mono);color:#cfd5de;overflow:auto;max-height:340px;white-space:pre-wrap;word-break:break-word}
+.k{color:var(--accent)} .c{color:var(--muted)}
+
+section{scroll-margin-top:70px;padding:72px 0;border-top:1px solid var(--line)}
+section h2{font-size:clamp(1.8rem,3.6vw,2.6rem);margin:12px 0 14px}
+.sub{color:var(--muted);max-width:60ch;margin:0 0 36px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px}
+.card h3{font-size:1.15rem;margin:10px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.num{font:500 .75rem var(--font-mono);color:var(--accent)}
+.rule{margin-top:20px;border:1px solid var(--accent);border-radius:14px;padding:22px 24px;background:rgba(198,244,50,.05)}
+.rule p{margin:6px 0 0;color:var(--text)}
+
+.console{display:grid;grid-template-columns:280px 1fr;border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;background:var(--bg-soft)}
+@media(max-width:860px){.console{grid-template-columns:1fr}}
+.tools{border-right:1px solid var(--line);background:var(--surface)}
+@media(max-width:860px){.tools{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow:auto}}
+.tool{display:block;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:14px 18px;font:500 .82rem var(--font-mono)}
+.tool small{display:block;color:var(--muted);font:400 .72rem var(--font-body);margin-top:3px}
+.tool[aria-pressed="true"]{background:var(--surface-2);box-shadow:inset 3px 0 var(--accent)}
+.panel{padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.args{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+label{font:500 .72rem var(--font-mono);color:var(--muted)}
+input,select,textarea{background:var(--bg);color:var(--text);border:1px solid var(--line-strong);border-radius:8px;padding:9px 11px;font:400 .85rem var(--font-mono)}
+textarea{width:100%;min-height:96px;resize:vertical}
+.out{background:#0c0e11;border:1px solid var(--line);border-radius:10px;padding:14px;font:400 .76rem/1.6 var(--font-mono);max-height:420px;overflow:auto;white-space:pre-wrap;word-break:break-word;min-height:160px}
+.meta{font:500 .7rem var(--font-mono);color:var(--muted);display:flex;justify-content:space-between}
+.note{font-size:.85rem;color:var(--muted)}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.snip{display:flex;gap:12px;align-items:flex-start;background:#0c0e11;border:1px solid var(--line-strong);border-radius:12px;padding:16px}
+.snip pre{margin:0;flex:1;font:400 .82rem/1.65 var(--font-mono);overflow:auto;white-space:pre-wrap;word-break:break-all}
+footer{border-top:1px solid var(--line);padding:32px 0 56px;color:var(--muted);font:400 .85rem var(--font-mono);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted)} footer a:hover{color:var(--accent)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);background:var(--accent);color:var(--accent-ink);padding:9px 16px;border-radius:999px;font:600 .78rem var(--font-mono);opacity:0;transition:.2s;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+  <a class="brand" href="#top"><b>HM</b>Hassan Mehmood <span>/mcp</span></a>
+  <nav aria-label="Sections"><a href="#use">Use cases</a><a href="#console">Live console</a><a href="#connect">Connect</a></nav>
+  <div class="status" id="status" role="status"><i class="dot"></i><span>checking…</span></div>
+</div></header>
+
+<main id="top">
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Hassan Mehmood · Machine learning &amp; retrieval systems</div>
+      <h1>Don't skim my CV. <em>Interrogate it.</em></h1>
+      <p class="lede">My portfolio is a live MCP server. Plug in Claude, ChatGPT, Cursor or any MCP client and ask about my work. Every answer is tied to a real project, and anything I haven't done comes back as a gap, not a guess.</p>
+      <div class="urlbar"><code id="url">…/mcp</code><button class="primary" id="copyUrl">COPY URL</button></div>
+      <div class="cta"><a class="btn" href="#console">Try the live console ↓</a><a class="btn" href="#connect">Connect my agent →</a></div>
+    </div>
+    <div class="term" aria-label="Sample tool output">
+      <div class="term-h"><span>→ get_profile</span><span id="heroMs">…</span></div>
+      <pre id="heroOut" class="c">Calling the server…</pre>
+    </div>
+  </div>
+</div>
+
+<section id="use"><div class="wrap">
+  <div class="eyebrow">What an agent can do</div>
+  <h2>Three tools that matter</h2>
+  <p class="sub">Built for the moment a recruiter's assistant takes the first look.</p>
+  <div class="cards">
+    <div class="card"><span class="num">01 · get_projects, get_skills</span><h3>Evidence, not keywords</h3><p>Projects with measurable results and known limits. Each skill is tied to where I actually used it, with a strength level.</p></div>
+    <div class="card"><span class="num">02 · fit_check</span><h3>An honest fit check</h3><p>Paste a job description. You get matched requirements with the project that proves each one, plus explicit gaps.</p></div>
+    <div class="card"><span class="num">03 · send_message</span><h3>Only when you ask</h3><p>The agent can message me, but it must show you the text and get your explicit yes first. It never contacts me on its own.</p></div>
+  </div>
+  <div class="rule"><div class="eyebrow">The one rule</div><p>The agent can only cite what's in the data. If a role needs something I haven't done, it reports a gap. I'd rather be shortlisted for the right reasons.</p></div>
+</div></section>
+
+<section id="console"><div class="wrap">
+  <div class="eyebrow">Live console</div>
+  <h2>Run the tools in your browser</h2>
+  <p class="sub">These are real JSON-RPC calls to this server, the same ones your agent would make.</p>
+  <div class="console">
+    <div class="tools" role="group" aria-label="Tools" id="toolList"></div>
+    <div class="panel">
+      <div class="args" id="args"></div>
+      <div><button class="primary" id="run">RUN TOOL ▸</button></div>
+      <div class="meta"><span id="reqLabel">request</span><span id="ms"></span></div>
+      <div class="out" id="out" aria-live="polite">Pick a tool and run it.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="connect"><div class="wrap">
+  <div class="eyebrow">Connect</div>
+  <h2>Plug it into your agent</h2>
+  <p class="sub">No account or key needed.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="snip"><pre id="snip"></pre><button id="copySnip">COPY</button></div>
+  <p class="note" id="tabNote"></p>
+</div></section>
+</main>
+
+<div class="wrap"><footer>
+  <span>© Hassan Mehmood</span>
+  <span><a href="https://github.com/hassanmehmood56" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/hassan-mehmood-4b3a20294" target="_blank" rel="noopener">LinkedIn</a> · <a id="siteLink" href="#" hidden>Main portfolio</a></span>
+</footer></div>
+<div id="toast" role="status"></div>
+
+<script>
+// Set this to your main portfolio URL to show a link back to it in the footer.
+const PORTFOLIO_URL = "";
+
+const $ = (s) => document.querySelector(s);
+const isWeb = location.protocol.startsWith("http");
+const ENDPOINT = (isWeb ? location.origin : "https://YOUR-DOMAIN") + "/mcp";
+const RPC = isWeb ? "/mcp" : null;
+$("#url").textContent = ENDPOINT;
+if (PORTFOLIO_URL) { const a = $("#siteLink"); a.href = PORTFOLIO_URL; a.hidden = false; }
+
+let toastT;
+function toast(m){ const t = $("#toast"); t.textContent = m; t.classList.add("on"); clearTimeout(toastT); toastT = setTimeout(()=>t.classList.remove("on"),1600); }
+function copy(text){ (navigator.clipboard?.writeText(text) ?? Promise.reject()).then(()=>toast("Copied ✓"),()=>toast("Select and copy manually")); }
+$("#copyUrl").onclick = () => copy(ENDPOINT);
+
+let rid = 0;
+async function rpc(method, params){
+  if (!RPC) throw new Error("Open this page from the running server (not as a file) to call the tools.");
+  const body = { jsonrpc:"2.0", id:++rid, method, params };
+  const t0 = performance.now();
+  const r = await fetch(RPC, { method:"POST", headers:{ "Content-Type":"application/json" }, body: JSON.stringify(body) });
+  const json = await r.json();
+  return { body, json, ms: Math.round(performance.now() - t0) };
+}
+
+// status pill + hero preview
+(async () => {
+  try {
+    const { json, ms } = await rpc("tools/call", { name:"get_profile", arguments:{} });
+    $("#status").classList.add("up"); $("#status span").textContent = `ONLINE ${ms}MS`;
+    $("#heroMs").textContent = `${ms}ms`;
+    const p = JSON.parse(json.result.content[0].text);
+    $("#heroOut").classList.remove("c");
+    $("#heroOut").textContent = JSON.stringify({ name:p.name, headline:p.headline, education:p.education.institution, current:p.current }, null, 2);
+  } catch (e) {
+    $("#status span").textContent = "OFFLINE"; $("#heroOut").textContent = e.message;
+  }
+})();
+
+// console
+const SAMPLE_JD = "Machine Learning Engineer (Junior)\nWe are building retrieval-augmented generation features for our product. You will work with Python, vector databases such as ChromaDB, local LLMs via Ollama, and XGBoost models. Experience with Docker and AWS is a plus. 1+ years of experience preferred.";
+const TOOLS = [
+  { name:"get_profile", sub:"Who I am", args:[] },
+  { name:"get_projects", sub:"Projects, results, limits", args:[{k:"id",type:"select",opts:["","univoice","taxrag","churn","logs","seizure","body","expense"],label:"id (optional)"}] },
+  { name:"get_skills", sub:"Skills tied to evidence", args:[{k:"skill",type:"text",label:"skill (try RAG, XGBoost, Kubernetes)",value:"RAG"}] },
+  { name:"fit_check", sub:"Evidence-based fit check", args:[{k:"job_description",type:"area",label:"job description",value:SAMPLE_JD}] },
+  { name:"send_message", sub:"Needs explicit confirmation", args:[], locked:true },
+];
+let cur = TOOLS[0];
+function renderTools(){
+  const box = $("#toolList"); box.innerHTML = "";
+  TOOLS.forEach(t => {
+    const b = document.createElement("button"); b.className = "tool"; b.setAttribute("aria-pressed", t === cur);
+    b.innerHTML = `${t.name}<small>${t.sub}</small>`;
+    b.onclick = () => { cur = t; renderTools(); renderArgs(); };
+    box.appendChild(b);
+  });
+}
+function renderArgs(){
+  const a = $("#args"); a.innerHTML = "";
+  if (cur.locked) { a.innerHTML = '<p class="note">For safety this one isn\'t runnable from the console. In your agent, it only works after you explicitly confirm the exact text to send.</p>'; $("#run").disabled = true; return; }
+  $("#run").disabled = false;
+  if (!cur.args.length) a.innerHTML = '<p class="note">No arguments.</p>';
+  cur.args.forEach(x => {
+    const wrap = document.createElement("div"); wrap.style.width = x.type === "area" ? "100%" : "auto";
+    const l = document.createElement("label"); l.textContent = x.label; l.htmlFor = "arg-" + x.k;
+    let el;
+    if (x.type === "select") { el = document.createElement("select"); x.opts.forEach(o => el.add(new Option(o || "(all)", o))); }
+    else if (x.type === "area") el = document.createElement("textarea");
+    else el = document.createElement("input");
+    el.id = "arg-" + x.k; el.dataset.k = x.k; if (x.value) el.value = x.value;
+    wrap.append(l, document.createElement("br"), el); a.appendChild(wrap);
+  });
+}
+$("#run").onclick = async () => {
+  const args = {};
+  document.querySelectorAll("#args [data-k]").forEach(el => { if (el.value) args[el.dataset.k] = el.value; });
+  $("#out").textContent = "Running…"; $("#ms").textContent = "";
+  try {
+    const { body, json, ms } = await rpc("tools/call", { name: cur.name, arguments: args });
+    $("#reqLabel").textContent = `tools/call → ${cur.name}`;
+    $("#ms").textContent = `${ms}ms`;
+    const txt = json.result ? json.result.content[0].text : JSON.stringify(json.error, null, 2);
+    $("#out").textContent = txt;
+  } catch (e) { $("#out").textContent = e.message; }
+};
+renderTools(); renderArgs();
+
+// connect tabs
+const CONNECT = [
+  { id:"Claude Code", text:`claude mcp add --transport http hassan ${ENDPOINT}`, note:"Run in your terminal, then ask: “Use the hassan server to fit-check me against this job description.”" },
+  { id:"Claude / ChatGPT", text:ENDPOINT, note:"Claude: Settings → Connectors → Add custom connector → paste the URL. ChatGPT: enable developer mode, then add it as a custom connector." },
+  { id:"Cursor / others", text:`{\n  "mcpServers": {\n    "hassan": { "url": "${ENDPOINT}" }\n  }\n}`, note:"Add this to your MCP config (Cursor: Settings → MCP). Any client that speaks Streamable HTTP works." },
+];
+let tab = 0;
+function renderTabs(){
+  const box = $("#tabs"); box.innerHTML = "";
+  CONNECT.forEach((c, i) => {
+    const b = document.createElement("button"); b.role = "tab"; b.textContent = c.id; b.setAttribute("aria-selected", i === tab);
+    b.onclick = () => { tab = i; renderTabs(); }; box.appendChild(b);
+  });
+  $("#snip").textContent = CONNECT[tab].text; $("#tabNote").textContent = CONNECT[tab].note;
+}
+$("#copySnip").onclick = () => copy(CONNECT[tab].text);
+renderTabs();
+</script>
+</body>
+</html>

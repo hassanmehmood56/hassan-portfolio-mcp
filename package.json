@@ -1,0 +1,12 @@
+{
+  "name": "hassan-portfolio-mcp",
+  "version": "1.0.0",
+  "description": "Portfolio of Hassan Mehmood, exposed as a remote MCP server",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "engines": { "node": ">=18" }
+}
